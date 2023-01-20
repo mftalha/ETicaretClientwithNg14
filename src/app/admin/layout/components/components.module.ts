@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-
+import {MatListModule} from '@angular/material/list';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -13,7 +14,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     SidebarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatListModule,
+    RouterModule // yönlendirme ve sayfaya yükleme komutlarını kullanacaksak html sayfalarından == bunu .ts ye eklememiz gerekiyor
   ],
   exports:[
     FooterComponent,
@@ -22,3 +25,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   ]
 })
 export class ComponentsModule { }
+
+//bu module = layout da kullanacağım componentler için.
+// bu module = footer , header ,sedebar componentleri otomatik eklenmeliydi diye biliyorum.

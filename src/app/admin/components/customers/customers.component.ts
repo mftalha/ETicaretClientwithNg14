@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 
 @Component({
   selector: 'app-customers',
@@ -8,8 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class CustomersComponent implements OnInit {
 
   constructor() { }
-
+   alertifyService: AlertifyService
   ngOnInit(): void {
+    this.alertifyService.message("test mesajidir",{});
   }
-
+  
 }
