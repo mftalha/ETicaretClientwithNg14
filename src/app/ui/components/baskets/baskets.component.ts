@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 @Component({
   selector: 'app-baskets',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasketsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toastrService: CustomToastrService) { 
+  }
 
   ngOnInit(): void {
+    this.toastrService.message("Test içerik", "Test Title", {
+      messageType: ToastrMessageType.Info,
+      possition: ToastrPosition.BottomCenter
+    });
   }
 
 }

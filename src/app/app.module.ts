@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AdminModule } from './admin/admin.module';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { UiModule } from './ui/ui.module';
 
 
@@ -17,7 +17,8 @@ import { UiModule } from './ui/ui.module';
     AppRoutingModule,
     AdminModule,
     UiModule,
-    NoopAnimationsModule
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
     
   ],
   providers: [],

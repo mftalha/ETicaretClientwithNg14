@@ -8,10 +8,10 @@ import { AlertifyService, MessageType, Position } from 'src/app/services/admin/a
 })
 export class CustomersComponent implements OnInit {
 
-  constructor() { }
-   alertifyService: AlertifyService
+  constructor( ) { }
+   
   ngOnInit(): void {
-    this.alertifyService.message("test mesajidir",{});
+    
   }
   
 }
