@@ -8,14 +8,16 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/
 })
 export class BasketsComponent implements OnInit {
 
-  constructor(private toastrService: CustomToastrService) { 
+  constructor(/*private toastrService: CustomToastrService*/) { 
   }
 
   ngOnInit(): void {
+/*
     this.toastrService.message("Test içerik", "Test Title", {
       messageType: ToastrMessageType.Info,
       possition: ToastrPosition.BottomCenter
     });
+*/
   }
 
 }

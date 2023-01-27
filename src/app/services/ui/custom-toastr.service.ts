@@ -9,7 +9,7 @@ export class CustomToastrService {
   constructor(private toastr: ToastrService) { }
 
   message(message: string, title: string, toastrOptions: Partial<ToastrOptions>){
-    this.toastr[toastrOptions.messageType](message, title, {
+    this.toastr[toastrOptions.messageType](message, title, { //burada  toastr.success == yerine toastr[toastrOptions.messageType] yazdık aynı işlevi karlılıyo= . yenirne []
       positionClass: toastrOptions.possition
     });
   }
