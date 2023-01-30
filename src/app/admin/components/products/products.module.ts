@@ -6,7 +6,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { CreateComponent } from './create/create.component';
 import { ListComponent } from './list/list.component';
 import {MatTableModule} from '@angular/material/table';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -21,7 +21,8 @@ import {MatTableModule} from '@angular/material/table';
       { path: "", component: ProductsComponent}
     ]),
     MatSidenavModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class ProductsModule { }

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UiModule } from './ui/ui.module';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -21,11 +22,11 @@ import { NgxSpinnerModule } from "ngx-spinner";
     UiModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    NgxSpinnerModule //bu modülün özelliği sadece bulundugu modülde kullanılabiliyor üstünde altında kullanılamıyor : import edildiği ve modül kısmına verildiğği modülde kullanılabiliyor : o yüzden biz temel modülde tanımlıyoruz : ve ardından js ile diğer modüllerden çağırılabilecek hale getirecez.
-    
+    NgxSpinnerModule, //bu modülün özelliği sadece bulundugu modülde kullanılabiliyor üstünde altında kullanılamıyor : import edildiği ve modül kısmına verildiğği modülde kullanılabiliyor : o yüzden biz temel modülde tanımlıyoruz : ve ardından js ile diğer modüllerden çağırılabilecek hale getirecez.
+    HttpClientModule
   ],
   providers: [
-    { provide: "baseUrl", useValue: "https://localhost:7071/api", multi: true} // appConfig mantıgını burada gerçekleştirdik.
+    { provide: "baseUrl", useValue: "https://localhost:7030/api", multi: true} // appConfig mantıgını burada gerçekleştirdik.
   ],
   bootstrap: [AppComponent]
 })
