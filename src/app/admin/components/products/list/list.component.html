@@ -72,9 +72,23 @@
       <td mat-cell *matCellDef="let element"> <img src="../../../../../assets/edit.png" width="25" height="25" /> </td>
     </ng-container>
 
+    <!--
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef>  </th>
     <td mat-cell *matCellDef="let element"> <img src="../../../../../assets/delete.png" width="25" height="25" (click)="delete(element.id, $event)" /> </td>
+    </ng-container>
+    -->
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>  </th> <!--appDelete= silme işlemi için directiv yapısı: çağırıyoruz-->
+      <td mat-cell *matCellDef="let element"
+          appDelete
+          [id]="element.id"
+          (callback)="getProducts()"
+          controller="products"> <!-- buradaki doğru çözüm : buradaki değeri ilgili .ts sayfasından çekmek. sonra aynı şekil input olarak delete.directive.ts ye gidecektir : gitmede değişim yok. : sadece buraya salt olarak yazmak çok doğru değil. : .ts dede bi enum olabilir benzeri bi yapıyla direk yazma yerine sonradan bakanın anlıyabileceği şekilde bırakılabilir. : ama şuanlık bu bizim işimizi global olarak göreceğinden böyle bıraktık burayı.-->
+      </td>     
+      <!-- [id]="element.id"  == elementi bulundugu satırın başında sonunda heryerde kullanabiliriz.-->
+      <!-- (callback)="getProducts" == tabloyu yenilememizi sağlayan func :: list.component.ts deydi = bu syafa üzerinden delete.directive de çağırabilmek için  delete.directivi oluşturduğum satırda bu methodu geri döndürüyorum. == output fonksiyonu deniyor buna'da -->
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
