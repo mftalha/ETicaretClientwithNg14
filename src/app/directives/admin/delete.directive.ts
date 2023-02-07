@@ -5,7 +5,7 @@ import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SpinnerType } from 'src/app/base/base.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DeleteDialogComponent, DeleteState } from '../../dialogs/delete-dialog/delete-dialog.component (2)';
+import { DeleteDialogComponent, DeleteState } from '../../dialogs/delete-dialog/delete-dialog.component';
 
 
 declare var $ : any
