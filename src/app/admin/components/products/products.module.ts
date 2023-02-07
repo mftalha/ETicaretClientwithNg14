@@ -8,11 +8,11 @@ import { ListComponent } from './list/list.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
-import { DeleteDialogComponent } from 'src/app/dialogs/delete-dialog/delete-dialog/delete-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { FileUploadModule } from '../../../services/common/file-upload/file-upload.module';
+import { DeleteDialogComponent } from '../../../dialogs/delete-dialog/delete-dialog.component';
 
 
 @NgModule({
