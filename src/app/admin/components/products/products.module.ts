@@ -12,6 +12,7 @@ import { DeleteDialogComponent } from 'src/app/dialogs/delete-dialog/delete-dial
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import { FileUploadModule } from '../../../services/common/file-upload/file-upload.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {MatInputModule} from '@angular/material/input';
     MatPaginatorModule,
     MatDialogModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    FileUploadModule //File işlemlerini için modül oluşturmuştuk : ilgili modülü product modülün içinde kullanabilmek için product modüle import ediyoruz.
   ]
 })
 export class ProductsModule { }

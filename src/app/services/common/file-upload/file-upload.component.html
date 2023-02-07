@@ -1,0 +1,26 @@
+<div class="center">
+  <!-- [accept]="options.accept" == hangi dosya türlerinin kabul edileceğini servisi çağıran html sayfasının component.ts sinden alıyorum. -->
+  <ngx-file-drop dropZoneLabel="Drop files here" [accept]="options.accept" (onFileDrop)="selectedFiles($event)">
+    <!--seçilen dosyaları selectedFiles fonksiyonu ile aktarıyoruz. ts sayfasına-->
+    (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+      {{options.explanation}} <!-- ne ekleneceğini çağrıldığı sayfdan veriyoruz : burdada çağrılan html sayfasının component.ts sinden verilen değeri basıyoruz -->
+      <button type="button" (click)="openFileSelector()">Seç</button>
+    </ng-template>
+  </ngx-file-drop>
+  <div class="upload-table" *ngIf="files">
+    <!-- eğerki herhangi bir dosya seçilmedi ise aşşağıdaki seçilenler kısmı görünmesin : files bir dizi idi. -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Seçilenler</th>
+        </tr>
+      </thead>
+      <tbody class="upload-name-style">
+        <tr *ngFor="let item of files; let i=index">
+          <td><strong>{{ item.relativePath }}</strong></td> <!-- Seçilen file'ları buradan listeler. -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
