@@ -12,7 +12,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { FileUploadModule } from '../../../services/common/file-upload/file-upload.module';
-import { DeleteDialogComponent } from '../../../dialogs/delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from '../../../dialogs/delete-dialog/delete-dialog.component (2)';
+
 
 
 @NgModule({
