@@ -8,11 +8,10 @@ import { ListComponent } from './list/list.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
-import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { FileUploadModule } from '../../../services/common/file-upload/file-upload.module';
-import { DeleteDialogComponent } from '../../../dialogs/delete-dialog/delete-dialog.component';
+import { DialogModule } from '../../../dialogs/dialog.module';
 
 
 
@@ -22,8 +21,7 @@ import { DeleteDialogComponent } from '../../../dialogs/delete-dialog/delete-dia
     ProductsComponent,
     CreateComponent,
     ListComponent,
-    DeleteDirective,
-    DeleteDialogComponent
+    DeleteDirective
   ],
   imports: [
     CommonModule,
@@ -33,7 +31,7 @@ import { DeleteDialogComponent } from '../../../dialogs/delete-dialog/delete-dia
     MatSidenavModule,
     MatTableModule,
     MatPaginatorModule,
-    MatDialogModule,
+    DialogModule,
     MatButtonModule,
     MatInputModule,
     FileUploadModule //File işlemlerini için modül oluşturmuştuk : ilgili modülü product modülün içinde kullanabilmek için product modüle import ediyoruz.
