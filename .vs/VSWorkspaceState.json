@@ -1,17 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\app",
-    "\\src\\app\\admin\\components",
-    "\\src\\app\\admin\\components\\products",
-    "\\src\\app\\dialogs",
-    "\\src\\app\\dialogs\\delete-dialog",
-    "\\src\\app\\directives",
-    "\\src\\app\\services",
-    "\\src\\app\\services\\common",
-    "\\src\\app\\services\\common\\file-upload"
+    ""
   ],
-  "SelectedNode": "\\src\\app\\dialogs\\delete-dialog\\delete-dialog.component (2).ts",
+  "SelectedNode": "\\D:\\Projects\\ETicaretUygulamasi-Ang14Version\\ETicaretClient",
   "PreviewInSolutionExplorer": false
 }
