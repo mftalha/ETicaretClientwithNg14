@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\directives",
+    "\\src\\app\\directives\\admin",
+    "\\src\\app\\services",
+    "\\src\\app\\services\\common"
   ],
-  "SelectedNode": "\\D:\\Projects\\ETicaretUygulamasi-Ang14Version\\ETicaretClient",
+  "SelectedNode": "\\src\\app\\services\\common\\file-upload",
   "PreviewInSolutionExplorer": false
 }
