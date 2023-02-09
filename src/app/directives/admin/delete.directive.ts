@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SpinnerType } from 'src/app/base/base.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DeleteDialogComponent, DeleteState } from '../../dialogs/delete-dialog/delete-dialog.component';
+import { DialogService } from '../../services/common/dialog.service';
 
 
 declare var $ : any
@@ -24,7 +25,8 @@ export class DeleteDirective {
     private httpClientService: HttpClientService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
-    private alertifyService: AlertifyService
+    private alertifyService: AlertifyService,
+    private dialogService: DialogService
   ) { 
     const img = _renderer.createElement("img");
     img.setAttribute("src", "../../../../../assets/delete.png");
@@ -40,47 +42,43 @@ export class DeleteDirective {
   
   @HostListener("click") //oluşturulan nesneye tıklandığında alttaki methoda gir : bu method ismi ahmette olabilir. önemli olan bu dinleme.
   async onclick(){
-    this.openDialog(async () => {
-      this.spinner.show(SpinnerType.LineSpinFadeRotating); // delete.directive : yi base componentten türetmek solit prensiplerine aykırı olacağından : burada tekrar base componenette ayarladığımız düzeni ayarladık basitçe ordan çağırmak yerine.
-      const td: HTMLTableCellElement = this.element.nativeElement; // HTMLTableCellElement == tablo td ye karşılık geliyor.
+    this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteState.Yes,
+      afterClosed: async () => {
+        this.spinner.show(SpinnerType.LineSpinFadeRotating); // delete.directive : yi base componentten türetmek solit prensiplerine aykırı olacağından : burada tekrar base componenette ayarladığımız düzeni ayarladık basitçe ordan çağırmak yerine.
+        const td: HTMLTableCellElement = this.element.nativeElement; // HTMLTableCellElement == tablo td ye karşılık geliyor.
 
-      //await this.productService.delete(this.id); //ilgili veriyi veritabanında silmek için veritabanı işlemlerini yaptığım servisimi çağırıyorum.
-      this.httpClientService.delete({
-        controller: this.controller
-      }, this.id).subscribe(data => {
-        $(td.parentElement).animate({ //silme işlemi için animasyon uyguluyoruz : görünüş için
-          opacity: 0,
-          left: "+=50",
-          height: "toogle"
-        }, 700, () => {
-          this.callback.emit();
-          this.alertifyService.message("Ürün başarıyla silinmiştir.",{
+        //await this.productService.delete(this.id); //ilgili veriyi veritabanında silmek için veritabanı işlemlerini yaptığım servisimi çağırıyorum.
+        this.httpClientService.delete({
+          controller: this.controller
+        }, this.id).subscribe(data => {
+          $(td.parentElement).animate({ //silme işlemi için animasyon uyguluyoruz : görünüş için
+            opacity: 0,
+            left: "+=50",
+            height: "toogle"
+          }, 700, () => {
+            this.callback.emit();
+            this.alertifyService.message("Ürün başarıyla silinmiştir.", {
+              dismissOthers: true,
+              messageType: MessageType.Success,
+              position: Position.TopRight
+            });
+          }); // silme işlemini tr ile yapmam lazım o yüzden : td nin ebeveyni olan tr ye erişiyorum :: td.parentElement diyerek. 
+        }, (errorResponse: HttpErrorResponse) => {
+          this.spinner.hide(SpinnerType.LineSpinFadeRotating);
+          this.alertifyService.message("ürün silinirken beklenmeyen bir hata ile karşılaşıldımıştır.", {
             dismissOthers: true,
-            messageType: MessageType.Success,
+            messageType: MessageType.Error,
             position: Position.TopRight
           });
-        }); // silme işlemini tr ile yapmam lazım o yüzden : td nin ebeveyni olan tr ye erişiyorum :: td.parentElement diyerek. 
-      }, (errorResponse: HttpErrorResponse) =>{
-        this.spinner.hide(SpinnerType.LineSpinFadeRotating);
-        this.alertifyService.message("ürün silinirken beklenmeyen bir hata ile karşılaşıldımıştır.",{
-          dismissOthers: true,
-          messageType: MessageType.Error,
-          position: Position.TopRight
         });
+      }
+
+      //end
       });
-    });
   }
 
-  openDialog(afterClosed:any): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: DeleteState.Yes,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == DeleteState.Yes)
-        afterClosed();
-    });
-  }
 
   /*
     const img: HTMLImageElement = event.srcElement; //burdan img yi elde ediyorum
