@@ -2,6 +2,8 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxFileDropEntry } from 'ngx-file-drop'; //FilseSystemFileEntry, FilesSystemDirectoryEntry == bunlarda ejkebeck süslü parentez içine hata alırsam : gençayda öyle
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerType } from '../../../base/base.component';
 import { FileUploadDialogComponent, FileUploadDialogState } from '../../../dialogs/file-upload-dialog/file-upload-dialog.component';
 import { AlertifyService, MessageType, Position } from '../../admin/alertify.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
@@ -19,7 +21,8 @@ export class FileUploadComponent  {
     private alertifyService: AlertifyService,
     private customToastrService: CustomToastrService,
     private dialog: MatDialog,
-    private dialogService: DialogService) { }
+    private dialogService: DialogService,
+    private spinner: NgxSpinnerService) { }
 
   public files: NgxFileDropEntry[];
 
@@ -39,7 +42,7 @@ export class FileUploadComponent  {
       componentType: FileUploadDialogComponent,
       data: FileUploadDialogState.Yes,
       afterClosed: () => { //dialog açıldığında yes geliyor ise post işlemini gerçekleştir.
-
+        this.spinner.show(SpinnerType.LineSpinFadeRotating)
         this.httpClientService.post({ 
           controller: this.options.controller,
           action: this.options.action,
@@ -48,6 +51,7 @@ export class FileUploadComponent  {
         }, fileData).subscribe(data => { //başarılı ise 
 
           const message: string = "Dosyalar başarıyla yüklenmiştir.";
+          this.spinner.hide(SpinnerType.LineSpinFadeRotating)
           if (this.options.isAdminPage) {
             this.alertifyService.message(message,
               {
@@ -62,10 +66,10 @@ export class FileUploadComponent  {
                 possition: ToastrPosition.TopRight
               })
           }
-
         }, (errorResponse: HttpErrorResponse) => { // süreçte patlama var ise
 
           const message: string = "Dosyalar yüklenirken beklenmeyen bir hatayla karşılaşılmıştır.";
+          this.spinner.hide(SpinnerType.LineSpinFadeRotating)
           if (this.options.isAdminPage) {
             this.alertifyService.message(message,
               {
