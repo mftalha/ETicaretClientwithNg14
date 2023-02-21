@@ -5,6 +5,8 @@ import {  NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { List_Product } from '../../../../contracts/list_product';
+import { SelectProductImageDialogComponent } from '../../../../dialogs/select-product-image-dialog/select-product-image-dialog.component';
+import { DialogService } from '../../../../services/common/dialog.service';
 import { ProductService} from '../../../../services/common/models/product.service'
 
 declare var $: any
@@ -16,13 +18,15 @@ declare var $: any
 })
 
 export class ListComponent extends BaseComponent implements OnInit  {
-
-  constructor(spinner: NgxSpinnerService, private productService: ProductService, private alertifyService: AlertifyService)
+  constructor(spinner: NgxSpinnerService,
+    private productService: ProductService,
+    private alertifyService: AlertifyService,
+    private dialogService: DialogService) //dialogu açmak için
   {
     super(spinner)
   }
 
-  displayedColumns: string[]= ['name', 'stock', 'price', 'createdDate', 'updatedDate', 'edit', 'delete'];
+  displayedColumns: string[]= ['name', 'stock', 'price', 'createdDate', 'updatedDate', 'photos' , 'edit', 'delete'];
   dataSource: MatTableDataSource<List_Product> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -39,22 +43,36 @@ export class ListComponent extends BaseComponent implements OnInit  {
     //this.dataSource.paginator = this.paginator;
   }
 
+  addProductImages(id: string) {
+    this.dialogService.openDialog({
+      componentType: SelectProductImageDialogComponent, //bu componeneti ayağa kaldıracaz.
+      data: id, //hangi ürün üzerinde resim ekleme işlemini gerçekleştireceğiz.
+      options: {
+        width: "1400px"
+        }
+      })
+  }
+
   async pageChanged() {
     await this.getProducts();
    }
-     
-  delete(id, event) {
-    const img: HTMLImageElement = event.srcElement; //burdan img yi elde ediyorum
-    // img.parentElement.parentElement :: burda img nin ebevyninden td yi : td nin ebeveyinden : tr yi elde ediyorum tr yi silerekde ilgili satırı kaldırabiliyorum : tablodan == silme için jquery'i' aşşağıda kullandım.
-    $(img.parentElement.parentElement).fadeOut(2000); // jquery fadeOut ile 2 saniyede sil. == animasyon ile fadeOut = soldurmak
-  }
-  
-
+ 
    async ngOnInit() {
     await this.getProducts()
   }
 
+
+  /*
+ delete(id, event) {
+   const img: HTMLImageElement = event.srcElement; //burdan img yi elde ediyorum
+   // img.parentElement.parentElement :: burda img nin ebevyninden td yi : td nin ebeveyinden : tr yi elde ediyorum tr yi silerekde ilgili satırı kaldırabiliyorum : tablodan == silme için jquery'i' aşşağıda kullandım.
+   $(img.parentElement.parentElement).fadeOut(2000); // jquery fadeOut ile 2 saniyede sil. == animasyon ile fadeOut = soldurmak
+ }
+ */
+
 }
+
+
 
 /*
 export class ListComponent implements AfterViewInit  {

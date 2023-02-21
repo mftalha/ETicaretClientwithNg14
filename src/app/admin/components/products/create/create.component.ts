@@ -18,13 +18,14 @@ export class CreateComponent extends BaseComponent {
   }
 
   @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter(); // bunu selecter üzerinden  referans eden componente fırlattık. = product.component : bu yüzden product.component.html sayfasında kullanabiliriz artık bunu. == ürün ekleme başarılı oldugunda aşşagıda yaptık : product.html sayfasına atacak : oradanda : product component sayfası üzerinden list component sayfasndaki method çağrılıp tablo güncellenecek : ekleme işlemi yapılduğında.
+  /* dosya yüklemeyle artık burda işimiz yok
   @Output() fileUploadOptions: Partial<FileUploadOptions> = {
     action: "upload",
     controller: "products",
     explanation: "Resimleri sürükleyin veya seçin...",
     isAdminPage: true,
     accept: ".png, .jpg, .jpeg" //bu dosyalar  kabul edilsin sade ve : klasör seç dediğimde sadece bu dosya uzantıları görülsün.
-  }; //burdan verdiğim -> component html sayfasına ordanda options ile : field-upload.component.ts sayfasına(servise) gidecek ordanda api ye veri akışı sağlanacak : @Output olarak işaretleme sebebim == dışarıya gidecek olması.
+  }; *///burdan verdiğim -> component html sayfasına ordanda options ile : field-upload.component.ts sayfasına(servise) gidecek ordanda api ye veri akışı sağlanacak : @Output olarak işaretleme sebebim == dışarıya gidecek olması.
 
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
 

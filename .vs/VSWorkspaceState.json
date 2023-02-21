@@ -3,7 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\services"
+    "\\src\\app\\dialogs",
+    "\\src\\app\\dialogs\\delete-dialog",
+    "\\src\\app\\dialogs\\file-upload-dialog",
+    "\\src\\app\\dialogs\\select-product-image-dialog",
+    "\\src\\app\\services",
+    "\\src\\app\\services\\common",
+    "\\src\\app\\services\\common\\file-upload"
   ],
+  "SelectedNode": "\\src\\app\\dialogs\\select-product-image-dialog\\select-product-image-dialog.component.ts",
   "PreviewInSolutionExplorer": false
 }
