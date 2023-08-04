@@ -1,16 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\app",
-    "\\src\\app\\dialogs",
-    "\\src\\app\\dialogs\\delete-dialog",
-    "\\src\\app\\dialogs\\file-upload-dialog",
-    "\\src\\app\\dialogs\\select-product-image-dialog",
-    "\\src\\app\\services",
-    "\\src\\app\\services\\common",
-    "\\src\\app\\services\\common\\file-upload"
+    ""
   ],
-  "SelectedNode": "\\src\\app\\dialogs\\select-product-image-dialog\\select-product-image-dialog.component.ts",
+  "SelectedNode": "\\F:\\MyProject\\Study\\Angular-14_E-Commerce\\Client",
   "PreviewInSolutionExplorer": false
 }
