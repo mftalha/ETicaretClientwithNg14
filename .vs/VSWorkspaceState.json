@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\dialogs",
+    "\\src\\app\\dialogs\\select-product-image-dialog"
   ],
-  "SelectedNode": "\\F:\\MyProject\\Study\\Angular-14_E-Commerce\\Client",
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }
