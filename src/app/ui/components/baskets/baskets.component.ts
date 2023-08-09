@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 @Component({
@@ -6,9 +8,10 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/
   templateUrl: './baskets.component.html',
   styleUrls: ['./baskets.component.scss']
 })
-export class BasketsComponent implements OnInit {
+export class BasketsComponent extends BaseComponent implements OnInit {
 
-  constructor(/*private toastrService: CustomToastrService*/) { 
+  constructor(/*private toastrService: CustomToastrService*/ spinner: NgxSpinnerService) { 
+    super(spinner)
   }
 
   ngOnInit(): void {
@@ -18,6 +21,8 @@ export class BasketsComponent implements OnInit {
       possition: ToastrPosition.BottomCenter
     });
 */
+
+    //this.showSpinner(SpinnerType.BallScaleMultiple)
   }
 
 }

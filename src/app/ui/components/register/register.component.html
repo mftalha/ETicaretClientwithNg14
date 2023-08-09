@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form [formGroup]="frm" (ngSubmit)="onSubmit(frm.value)" class="mt-3">
+            <div class="mb-3">
+                <label for="nameSurname" class="form-label">Ad Soyad</label>
+                <input type="text" formControlName="nameSurname" class="form-control" id="nameSurname" placeholder="Ad Soyad" [ngClass]="{'is-invalid': submitted && component.nameSurname.errors}" >
+                <div class="form-text invalid-feedback" *ngIf="submitted && component.nameSurname.errors?.required" >Lütfen ad soyadı boş geçmeyiniz</div>
+                <div class="form-text invalid-feedback" *ngIf="submitted && (component.nameSurname.errors?.maxlength || component.nameSurname.errors?.minlength)" >Lütfen ad soyadı 3 ile 50 karekter arası yazınız</div>
+              </div>
+            <div class="mb-3">
+              <label for="userName" class="form-label">Kullanıcı Adı</label>
+              <input type="text" formControlName="userName" class="form-control" id="userName" placeholder="Kullanıcı Adı" [ngClass]="{'is-invalid': submitted && component.userName.errors}">
+              <div class="form-text invalid-feedback" *ngIf="submitted && component.userName.errors?.required" >Lütfen kullanıcı adını boş geçmeyiniz</div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" formControlName="email" id="email" class="form-control" placeholder="Email" [ngClass]="{'is-invalid': submitted && component.email.errors}">
+                <div class="form-text invalid-feedback" *ngIf="submitted && component.email.errors?.required" >Lütfen email'i boş geçmeyiniz</div>
+                <div class="form-text invalid-feedback" *ngIf="submitted && component.email.errors?.email" >Lütfen Email formatını doğru giriniz</div>
+              </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Şifre</label>
+              <input type="password" formControlName="password" class="form-control" placeholder="Şifre" id="password" [ngClass]="{'is-invalid': submitted && component.password.errors}">
+            </div>
+            <div class="mb-3">
+                <label for="passwordAgain" class="form-label">Şifre Tekrar</label>
+                <input type="password" formControlName="passwordAgain" class="form-control" placeholder="Şifre Tekrar" id="passwordAgain" [ngClass]="{'is-invalid': submitted && component.passwordAgain.errors}">
+                 <!-- <div  *ngIf="submitted && frm.hasError('notSame')"> Girilen şifreler eşleşmiyor.</div>  -->
+                <!-- pass lar eşitmi kotnroll de hata çıktı 37. ders 105 . dk ve çevresi anlatıyor. : hata bende çıjktı araştırdıkm çözemedim. -->
+            </div>
+            <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+          </form>
+    </div> 
+    <div class="col-md-3"></div>
+</div>
