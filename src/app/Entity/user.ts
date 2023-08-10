@@ -3,5 +3,5 @@ export class User{
     userName: string;
     email: string;
     password: string;
-    passwordAgain: string;
+    passwordConfirm: string;
 }
