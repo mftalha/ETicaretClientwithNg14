@@ -9,6 +9,7 @@ import { UiModule } from './ui/ui.module';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,16 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     BrowserAnimationsModule,
     NgxSpinnerModule, //bu modülün özelliği sadece bulundugu modülde kullanılabiliyor üstünde altında kullanılamıyor : import edildiği ve modül kısmına verildiğği modülde kullanılabiliyor : o yüzden biz temel modülde tanımlıyoruz : ve ardından js ile diğer modüllerden çağırılabilecek hale getirecez.
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    JwtModule.forRoot({
+      config:{
+        // npm i @auth0/angular-jwt => githubda dökümantasyonu mevcuttur.
+        // tüm isteklerde ilgili apilere bu token'ı ekle
+        tokenGetter: () => localStorage.getItem("accessToken"),
+        allowedDomains: ["localhost:7030"], // bu api adreslerine istek gönder diye belirtiyoruz.
+        //disallowedRoutes => // bu api isteklerine istek hiçbirtürlü gönderme diye verebiliyoruz
+      }
+    }) //  token işlemleri için dahil ettiğimiz kütüphane
   ],
   providers: [
     {

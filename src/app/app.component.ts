@@ -3,6 +3,9 @@ declare var $:any //jquery kütüphansini ilgili componente bağlı sayfalarda k
 //jquery'in başarılı bir şekilde projeye dahil edildiğini anlayabiliyorum jqueryin doları ile.
 import { NgxSpinnerService } from "ngx-spinner";
 import { BaseComponent, SpinnerType } from './base/base.component';
+import { AuthService } from './services/common/auth.service';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +13,8 @@ import { BaseComponent, SpinnerType } from './base/base.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends BaseComponent implements OnInit {
-  title = 'ETicaretClient';
-
-  constructor(spinner: NgxSpinnerService) {
+  constructor(spinner: NgxSpinnerService, public authService: AuthService, private toastrServices: CustomToastrService, private router: Router) {
+    authService.identityCheck();
     super(spinner);
   }
   ngOnInit() {
@@ -22,6 +24,15 @@ export class AppComponent extends BaseComponent implements OnInit {
 
   }
 
+  signOut(){
+    localStorage.removeItem("accessToken");
+    this.authService.identityCheck();
+    this.router.navigate([""]);
+    this.toastrServices.message("Oturum kapatılmıştır!", "Oturum Kapatıldı", {
+      messageType: ToastrMessageType.Warning,
+      possition: ToastrPosition.TopRight
+    })
+  }
 
 }
 
