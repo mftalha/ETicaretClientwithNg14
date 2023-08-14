@@ -7,11 +7,14 @@
               <input #txtUserNameOrEmail type="text" class="form-control" id="userName" placeholder="Kullanıcı Adı & Email">
               <div class="form-text invalid-feedback">***</div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="password" class="form-label">Şifre</label>
               <input #txtPassword type="password" formControlName="password" class="form-control" placeholder="Şifre" id="password">
             </div>
-            <button type="submit" class="btn btn-primary" (click)="login(txtUserNameOrEmail.value, txtPassword.value)" >Giriş Yap</button>
+
+            <asl-google-signin-button></asl-google-signin-button>
+
+            <button type="submit" class="btn btn-primary mt-2" (click)="login(txtUserNameOrEmail.value, txtPassword.value)" >Giriş Yap</button>
           
     </div> 
     <div class="col-md-3"></div>

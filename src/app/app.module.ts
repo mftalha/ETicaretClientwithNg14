@@ -10,11 +10,13 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { JwtModule } from '@auth0/angular-jwt';
+import { LoginComponent } from './ui/components/login/login.component';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
     AppComponent,
-    
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -34,11 +36,25 @@ import { JwtModule } from '@auth0/angular-jwt';
         allowedDomains: ["localhost:7030"], // bu api adreslerine istek gönder diye belirtiyoruz.
         //disallowedRoutes => // bu api isteklerine istek hiçbirtürlü gönderme diye verebiliyoruz
       }
-    }) //  token işlemleri için dahil ettiğimiz kütüphane
+    }), //  token işlemleri için dahil ettiğimiz kütüphane
+    SocialLoginModule
   ],
   providers: [
     {
-      provide: "baseUrl", useValue: "https://localhost:7030/api", multi: true
+      provide: "baseUrl", useValue: "https://localhost:7030/api", multi: true,
+    },
+    {
+      provide: "SocialAuthServiceConfig",
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider("408152542383-imii4i189nmj3db14e5rbl3p1old1037.apps.googleusercontent.com")
+          }
+        ],
+        onError: err => console.log(err)
+      } as SocialAuthServiceConfig
     }, // appConfig mantıgını burada gerçekleştirdik.
     { // ERROR Error: Uncaught (in promise): NullInjectorError: R3InjectorError = hatası için eklendi 
       provide: MatDialogRef,
