@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/common/models/user.service';
 import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
+import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,20 +16,20 @@ import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
   // ActivatedRoute => url'deki root paremetreleri için
-  constructor(private userService: UserService, spinner: NgxSpinnerService, private authService: AuthService, private activatedRoute: ActivatedRoute, private router: Router, private socialAuthService: SocialAuthService, private httpClientService : HttpClientService ) { 
+  constructor(private userAuthService: UserAuthService, spinner: NgxSpinnerService, private authService: AuthService, private activatedRoute: ActivatedRoute, private router: Router, private socialAuthService: SocialAuthService, private httpClientService : HttpClientService ) { 
     super(spinner)
     socialAuthService.authState.subscribe(async (user: SocialUser) => {
       console.log(user)
       this.showSpinner(SpinnerType.BallScaleMultiple)
       switch (user.provider){
         case "GOOGLE":
-          await userService.googleLogin(user, () => {
+          await userAuthService.googleLogin(user, () => {
             this.authService.identityCheck();
             this.hideSpinner(SpinnerType.BallScaleMultiple);
           })
           break;
         case "FACEBOOK":
-          await userService.facebookLogin(user, () =>{
+          await userAuthService.facebookLogin(user, () =>{
             this.authService.identityCheck();
             this.hideSpinner(SpinnerType.BallScaleMultiple);
           })
@@ -43,7 +44,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   async login(userNameOrEmail: string, password: string){
     this.showSpinner(SpinnerType.BallScaleMultiple);
-    await this.userService.login(userNameOrEmail, password, () => {
+    await this.userAuthService.login(userNameOrEmail, password, () => {
       this.authService.identityCheck();
       this.activatedRoute.queryParams.subscribe(params =>{
         const returnUrl = params["returnUrl"]; 
