@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { AuthService } from 'src/app/services/common/auth.service';
 import { UserService } from 'src/app/services/common/models/user.service';
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
 
@@ -20,11 +20,22 @@ export class LoginComponent extends BaseComponent implements OnInit {
     socialAuthService.authState.subscribe(async (user: SocialUser) => {
       console.log(user)
       this.showSpinner(SpinnerType.BallScaleMultiple)
-      await userService.googleLogin(user, () => {
-        this.authService.identityCheck();
-        this.hideSpinner(SpinnerType.BallScaleMultiple);
-      })
+      switch (user.provider){
+        case "GOOGLE":
+          await userService.googleLogin(user, () => {
+            this.authService.identityCheck();
+            this.hideSpinner(SpinnerType.BallScaleMultiple);
+          })
+          break;
+        case "FACEBOOK":
+          await userService.facebookLogin(user, () =>{
+            this.authService.identityCheck();
+            this.hideSpinner(SpinnerType.BallScaleMultiple);
+          })
+          break;
+      }
     });
+    
   }
 
   ngOnInit(): void {
@@ -41,5 +52,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
       })
       this.hideSpinner(SpinnerType.BallScaleMultiple)
     });
+  }
+
+  facebookLogin() {
+    // bu işlem facebook ekranının açılmasını sağlar butona tıklandığında(butonun on clik'ine koyduk bu fonksiyonu)
+    // eğerki girdiğimiz bilgiler doğru olur ise üstteki socialAuthService.authState.subscribe düşecektir bilgiler.
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID) 
   }
 }
