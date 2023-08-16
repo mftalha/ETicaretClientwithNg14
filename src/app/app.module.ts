@@ -7,11 +7,12 @@ import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UiModule } from './ui/ui.module';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoginComponent } from './ui/components/login/login.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,9 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
         onError: err => console.log(err)
       } as SocialAuthServiceConfig
     }, // appConfig mantıgını burada gerçekleştirdik.
+    { // HTTP_INTERCEPTORS(hata olaylarıdna => HttpErrorHandlerInterceptorService servisini kullan ; multi: true => birden fazla intercepter için) => burda program.cs deki gibi bildiriyruz gibi birşey sevisi. => programda yapılan tüm isteklerde bu servis araya girecek.
+      provide: HTTP_INTERCEPTORS, useClass: HttpErrorHandlerInterceptorService, multi: true
+    },
     { // ERROR Error: Uncaught (in promise): NullInjectorError: R3InjectorError = hatası için eklendi 
       provide: MatDialogRef,
       useValue: {}
