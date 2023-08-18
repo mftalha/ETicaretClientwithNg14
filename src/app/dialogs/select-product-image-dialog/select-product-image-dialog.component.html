@@ -7,6 +7,8 @@
     <mat-card-header>
       
     </mat-card-header>
+    <!-- [(ngModel)]="image.showcase" => hangi radio button seçiliyse arka planda => o seçili gelir. -->
+    <input type="radio" name="img" (click)="showCase(image.id)" [checked]="selectedId === image.id" />
     <img  mat-card-image [src]="image.path">
     <mat-card-content>
     </mat-card-content>

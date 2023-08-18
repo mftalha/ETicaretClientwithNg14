@@ -35,9 +35,9 @@ export class ProductService {
 
   //biz veriyi buraya çekecez gerekli kontrolleri yapacaz sonra gerekli kullanılcak componente yollıyacaz
   async read(page: number = 0, size: number= 5, successCallBack?: ()=> void, errorCallBack?:
-   (errorMessage: string) => void): Promise<{ totalCount: number; products: List_Product[] }>{ // asyncron method olduğundan geri döndürmeyi Promise ile yapıyoruz: x# daki task
+   (errorMessage: string) => void): Promise<{ totalProductCount: number; products: List_Product[] }>{ // asyncron method olduğundan geri döndürmeyi Promise ile yapıyoruz: x# daki task
     // await this.httpClientService.get<List_Product[]>({ // : await tüm verinin çekilmesini bekleyeceğinden await ile kullanmıyoruz: çünkü biz araya girip kontroller yapacaz : validation kontrolleri mesela})
-    const promiseData: Promise<{ totalCount: number; products: List_Product[]}>  = this.httpClientService.get<{ totalCount: number; products: List_Product[] }>({
+    const promiseData: Promise<{ totalProductCount: number; products: List_Product[]}>  = this.httpClientService.get<{ totalProductCount: number; products: List_Product[] }>({
       controller: "products",  
       queryString: `page=${page}&size=${size}`
     }).toPromise(); // promise : c# daki task'a bener veri dönene kadar bekler.
@@ -77,6 +77,16 @@ export class ProductService {
     successCallBack();
    }
 
+   async changeShowcaseImage(imageId: string, productId:string, successCallBack?: () => void): Promise<void>{
+    const changeShowcaseImageObservable = this.httpClientService.get({
+      controller: "products",
+      action: "ChangeShowcaseImage",
+      queryString: `imageId=${imageId}&productId=${productId}`
+    });
+
+    await firstValueFrom(changeShowcaseImageObservable);
+    successCallBack();
+   }
 }
 
 // bizim bu servisi oluşturma sebebimiz : product ile ilgili : veri çekme , yükleme , güncelleme gibi işlemleri product.componnet.ts sayfasında yapmanın doğru olmadığı için : burada yapacaz : oradan bu servisleri çağıracaz sadece.

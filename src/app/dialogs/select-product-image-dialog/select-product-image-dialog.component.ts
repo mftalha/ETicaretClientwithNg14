@@ -31,8 +31,6 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
   {
     super(dialogRef)
   }
-  
-
 
   //hangi dosyaların kabul edileceğini servise vereceğiz.
   @Output() options: Partial<FileUploadOptions> = {
@@ -45,10 +43,12 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
   };
 
   images: List_Product_Image[];
+  selectedId: string;
 
   async ngOnInit() {
     this.spinner.show(SpinnerType.BallSpinClockiseFade);
     this.images = await this.productService.readImages(this.data as string, () => this.spinner.hide(SpinnerType.BallSpinClockiseFade));  // as string => string gelecek diye garanti veriyoruz ve string'e dönültürüyor
+    this.selectedId = this.images.find(i => i.showcase == true).id;
   }
 
   async deleteImage(imageId: string, event: any){
@@ -64,11 +64,15 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
         card.fadeOut(500)
       });
       }
-    })
-
-    
+    })  
   }
 
+  showCase(imageId: string){
+    this.spinner.show(SpinnerType.BallScaleMultiple);
+    this.productService.changeShowcaseImage(imageId, this.data as string, () => {
+      this.spinner.hide(SpinnerType.BallScaleMultiple);
+    });
+  }
 }
 
 export enum SelectProductImageState {
