@@ -54,7 +54,7 @@
                 </ul>
                 
                 <div class="d-flex"> 
-                  <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Sepet</button>
+                  <button class="btn btn-outline-success" (click)="loadComponent()" data-bs-toggle="modal" data-bs-target="#exampleModal">Sepet</button>
                 </div>
                 <!--
                 <form class="d-flex" role="search">
@@ -84,5 +84,16 @@
 <ngx-spinner name="s3" size="default" type="line-spin-fade-rotating"></ngx-spinner>
 <!-- burda name ile isimlendirip çağırıken show("s2") = diyerek s2 isimli spiner'i çalıştırır.-->
 
-<!-- basket sayfasını buraya gömdük -->
+<!-- basket sayfasını buraya gömdük --->
+
+<!-- static olarak component yüklenemsi.
 <app-baskets></app-baskets>
+-->
+
+<!-- Dom nesnesine eklnemiyen özel bir angular elmanıdır => bu template içerisine istediğimiz html sayfaları nı yazıp istediğimiz yerde çağırabiliyoruz.-->
+<!-- Burda modal açma kodlarını basket.component.html sayfasında yazmak daha doğru ama aldığımız hata için buraya yazdık bunları : optimizasyon yapılabilir.-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <ng-template appDynamicLoadComponent></ng-template>
+  </div>
+</div>

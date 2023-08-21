@@ -1,4 +1,4 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnInit, Type, ViewChild } from '@angular/core';
 declare var $:any //jquery kütüphansini ilgili componente bağlı sayfalarda kullanabilmek için dolar işaretini burada build ediyiyorum. 
 //jquery'in başarılı bir şekilde projeye dahil edildiğini anlayabiliyorum jqueryin doları ile.
 import { NgxSpinnerService } from "ngx-spinner";
@@ -6,6 +6,11 @@ import { BaseComponent, SpinnerType } from './base/base.component';
 import { AuthService } from './services/common/auth.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 import { Router } from '@angular/router';
+import { ComponentType, DynamicLoadComponentService } from './services/common/dynamic-load-component.service';
+import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
+
+//import ettiğimiz Component ismi farklı kütüphanlerdede kullanıldığında çakışma oluştuğundan farklı bir çağırma ismi veriyoruz.
+//import {Component as DynamicComponent} from '../app/services/common/dynamic-load-component.service'
 
 @Component({
   selector: 'app-root',
@@ -13,7 +18,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends BaseComponent implements OnInit {
-  constructor(spinner: NgxSpinnerService, public authService: AuthService, private toastrServices: CustomToastrService, private router: Router) {
+  // directive'nin nesnesini oluşturuyoruz => modal içinde gösterdiğimiz sepet verileri için.
+  @ViewChild(DynamicLoadComponentDirective, { static: true})
+  dynamicLoadComponentDirective: DynamicLoadComponentDirective;
+
+  constructor(spinner: NgxSpinnerService, public authService: AuthService, private toastrServices: CustomToastrService, private router: Router, private dynamicLoadComponentService: DynamicLoadComponentService) {
     authService.identityCheck();
     super(spinner);
   }
@@ -32,6 +41,11 @@ export class AppComponent extends BaseComponent implements OnInit {
       messageType: ToastrMessageType.Warning,
       possition: ToastrPosition.TopRight
     })
+  }
+
+  loadComponent() {
+    // ilgili directive üzerinden yükleme işlemini gerçekeltiriyoruz
+    this.dynamicLoadComponentService.loadComponent(ComponentType.BasketsComponent,this.dynamicLoadComponentDirective.viewContainerRef);
   }
 
 }
