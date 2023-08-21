@@ -1,19 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { baseUrl } from 'src/app/contracts/base_url';
+import { Create_Basket_Item } from 'src/app/contracts/basket/create_basket_item';
 import { List_Product } from 'src/app/contracts/list_product';
 import { FileService } from 'src/app/services/common/models/File.service';
+import { BasketService } from 'src/app/services/common/models/basket.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent extends BaseComponent implements OnInit {
 
   // ActivatedRoute => route parametrelerine subscribe olmamızı sağlayan bir sınıf
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private fileService: FileService) { }
+  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private fileService: FileService, private basketService: BasketService, spinner: NgxSpinnerService, private customToastrService: CustomToastrService) {
+    super(spinner)
+   }
 
   currentPageNo: number;
   totalProductCount: number;
@@ -92,6 +99,19 @@ export class ListComponent implements OnInit {
               this.pageList.push(i);
           
 
+    });
+  }
+
+  async addToBasket(product: List_Product){
+    this.showSpinner(SpinnerType.BallScaleMultiple);
+    let _basketItem: Create_Basket_Item = new Create_Basket_Item();
+    _basketItem.productId = product.id;
+    _basketItem.quantity = 1; //burda 1 vermeye gerek yok zaten => 1 eklenecek back-end'de 1 eklenebilir direk burdan alınmadan. ilk sepete eklemede
+    await this.basketService.add(_basketItem);
+    this.hideSpinner(SpinnerType.BallScaleMultiple);
+    this.customToastrService.message("Ürün sepete eklenmiştir.", "Sepete Eklendi",{
+      messageType: ToastrMessageType.Success,
+      possition: ToastrPosition.TopRight
     });
   }
 }

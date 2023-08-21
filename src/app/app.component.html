@@ -19,10 +19,10 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" routerLink="products">Products</a>
-                  </li>
+                  </li><!--
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" routerLink="basket">Basket</a>
-                  </li>
+                  </li> -->
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" routerLink="register" *ngIf="!authService.isAuthenticated">Register</a>
                   </li>
@@ -52,6 +52,10 @@
                   </li>
                 -->
                 </ul>
+                
+                <div class="d-flex"> 
+                  <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Sepet</button>
+                </div>
                 <!--
                 <form class="d-flex" role="search">
                   <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -80,3 +84,5 @@
 <ngx-spinner name="s3" size="default" type="line-spin-fade-rotating"></ngx-spinner>
 <!-- burda name ile isimlendirip çağırıken show("s2") = diyerek s2 isimli spiner'i çalıştırır.-->
 
+<!-- basket sayfasını buraya gömdük -->
+<app-baskets></app-baskets>
