@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService {
+
+  //@Inject("baseSignalRUrl") => app.module içindeki provider
+  constructor(@Inject("baseSignalRUrl") private baseSignalRUrl: string ){}
 
   // connection bilgimizi tutuyor.
   private _connection: HubConnection; 
@@ -15,6 +18,7 @@ export class SignalRService {
 
   //başlatılmış bir hub dönecek
   start(hubUrl:string) {
+    hubUrl = this.baseSignalRUrl + hubUrl;
     // hub bağlanmamış ise veya bağlanmış iletişim kurmamış ise => bağlantıyı sağlayana kadar bu if'in altına geçmeyecektir.
     if(!this.connection || this.connection?.state == HubConnectionState.Disconnected){
       const builder : HubConnectionBuilder = new HubConnectionBuilder();

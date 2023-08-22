@@ -13,7 +13,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(private alertify: AlertifyService ,private signalRService: SignalRService) { 
 
+    signalRService.start(HubUrls.OrderHub);
     signalRService.start(HubUrls.ProductHub);
+    
   }
 
   ngOnInit(): void {
@@ -22,7 +24,12 @@ export class DashboardComponent implements OnInit {
         messageType: MessageType.Notify,
         position: Position.TopRight
       });
-    })
+    });
+    this.signalRService.on(ReceiveFunctions.OrderAddedMessageReceiveFunction , message => {
+      this.alertify.message(message, {
+        messageType: MessageType.Notify,
+        position: Position.TopCenter
+      });
+    });
   }
-
 }
