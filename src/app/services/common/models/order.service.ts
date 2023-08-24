@@ -3,6 +3,7 @@ import { HttpClientService } from '../http-client.service';
 import { Create_Order } from 'src/app/contracts/Order/create_order';
 import { Observable, firstValueFrom } from 'rxjs';
 import { List_Order } from 'src/app/contracts/Order/list_order';
+import { SingleOrder } from 'src/app/contracts/Order/single_order';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,17 @@ export class OrderService {
       .catch(error => errorCallBack(error));
 
     return await promiseData;
+  }
+
+  async getOrderById(id: string, successCallBack?: ()=> void, errorCallBack?:(errorMessage: string) => void){
+    const observable: Observable<SingleOrder> = this.httpClientService.get<SingleOrder>({
+      controller: "orders"
+    },id);
+
+    const promiseData = firstValueFrom(observable); // awaitle beklemeksizin alıyoruz => aşşağıda then, catch yapısı kullanacağımzı için
+    promiseData.then(value => successCallBack())
+    .catch(error => errorCallBack(error))
+
+    return await promiseData; // yukarıda hala veriyi beklemiyoruz asenkron çalışıyoruz burada => veriyi bekliyoruz await ile
   }
 }
