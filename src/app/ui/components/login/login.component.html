@@ -23,7 +23,9 @@
             
 
             <button type="submit" class="btn btn-primary mt-2" (click)="login(txtUserNameOrEmail.value, txtPassword.value)" >Giriş Yap</button>
-          
+
+            <a class="btn btn-secondary mt-2 ms-2" routerLink="/password-reset"> Şifremi Unuttum</a>
+            <!-- routerLink="/password-reset" => başına slaş koymazsam bulundugu url/password-reset olurdu bizse başına slaş koyarak => localhost:4200/password-reset sayfasına yönlendiriyoruz böylece => / ile önündeki uzantıları görme köke git diyoruz.-->
     </div> 
     <div class="col-md-3"></div>
 </div>
