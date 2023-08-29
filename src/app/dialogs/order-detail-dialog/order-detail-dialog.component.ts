@@ -3,6 +3,11 @@ import { BaseDialog } from '../base/base-dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OrderService } from 'src/app/services/common/models/order.service';
 import { SingleOrder } from 'src/app/contracts/Order/single_order';
+import { DialogService } from 'src/app/services/common/dialog.service';
+import { CompleteOrderDialogComponent, CompleteOrderState } from '../complete-order-dialog/complete-order-dialog.component';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerType } from 'src/app/base/base.component';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 @Component({
   selector: 'app-order-detail-dialog',
@@ -14,7 +19,10 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
   constructor(
     dialogRef: MatDialogRef<OrderDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: OrderDetailDialogState | string, // gelen data
-    private orderService: OrderService) {  
+    private orderService: OrderService,
+     private dialogService: DialogService,
+     private spinner: NgxSpinnerService,
+     private toastrService: CustomToastrService) {  
     super(dialogRef)
   }
 
@@ -31,7 +39,22 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
      // linq daki sum'u kullaamadığımızdan burada bu şekilde tüm ürünlerin toplam fiyatını hesaplıyoruz
      this.totalPrice = this.singleOrder.basketItems.map((basketItem, index) => basketItem.price * basketItem.quantity)
      .reduce((price, current) => price + current);
+  }
 
+  completeOrder(){
+    this.dialogService.openDialog({
+      componentType: CompleteOrderDialogComponent,
+      data: CompleteOrderState.Yes,
+      afterClosed: async () => {
+        this.spinner.show(SpinnerType.BallScaleMultiple);
+        await this.orderService.completeOrder(this.data as string);
+        this.spinner.hide(SpinnerType.BallScaleMultiple);
+        this.toastrService.message("Sipariş başarıyla tamamlanmıştır! Müşteriye bilgi verilmiştir.","Sipariş tamamlandı",{
+          messageType: ToastrMessageType.Success,
+          possition: ToastrPosition.TopRight
+        });
+      }
+    });
   }
 
 }

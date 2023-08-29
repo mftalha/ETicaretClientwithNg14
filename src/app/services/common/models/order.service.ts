@@ -44,4 +44,13 @@ export class OrderService {
 
     return await promiseData; // yukarıda hala veriyi beklemiyoruz asenkron çalışıyoruz burada => veriyi bekliyoruz await ile
   }
+
+  async completeOrder(id: string){
+    const observable: Observable<any> = this.httpClientService.get({
+      controller: "orders",
+      action: "complete-order"
+    }, id);
+
+    await firstValueFrom(observable); //observableyi tetikleyip bekliyrouz
+  }
 }

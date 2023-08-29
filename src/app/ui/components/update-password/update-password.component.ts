@@ -65,7 +65,6 @@ export class UpdatePasswordComponent extends BaseComponent implements OnInit {
         this.hideSpinner(SpinnerType.BallScaleMultiple);
     }
    })
-    
 
   }
 }

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Dikkat!</h1>
+<div mat-dialog-content>
+  <p>Siparişi tamamlamak isteğinize emin misiniz ?</p>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">İptal</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial (click)="complete()">Evet</button>
+<!-- https://material.angular.io/components/dialog/api dan = MatDialogModule indirilmeli-->
+</div>
+
