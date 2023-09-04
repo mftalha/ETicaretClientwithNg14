@@ -15,7 +15,8 @@ const routes: Routes = [
       //{path: "customers/x", loadChildren : ()=> import("./admin/components/customers/customers.module").then(module => module.CustomersModule)}, // burda customer/x deme sebebim path de ilgili modülde pathde x yazdığımdan o rotaya erişmem için burda böyle yazmam gerkir.
       {path: "customers", loadChildren : ()=> import("./admin/components/customers/customers.module").then(module => module.CustomersModule), canActivate: [AuthGuard]},
       {path: "products", loadChildren : ()=> import("./admin/components/products/products.module").then(module => module.ProductsModule), canActivate: [AuthGuard]},
-      {path: "orders", loadChildren : ()=> import("./admin/components/orders/orders.module").then(module => module.OrdersModule), canActivate: [AuthGuard]}
+      {path: "orders", loadChildren : ()=> import("./admin/components/orders/orders.module").then(module => module.OrdersModule), canActivate: [AuthGuard]},
+      {path: "authorize-menu", loadChildren : ()=> import("./admin/components/authorize-menu/authorize-menu.module").then(module => module.AuthorizeMenuModule), canActivate: [AuthGuard]}
     ], canActivate: [AuthGuard] //admin url sine bir istek geliyorsa önce burdaki gard'ı bir tetikle : true dönerse devam et ur'lelere
   },
   // extra layoutlar hariç ana layoutu aşşağıdaki gibi tüm compenentlerini ayrı ayrı veriyorum.
