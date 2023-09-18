@@ -32,7 +32,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     this.showSpinner(SpinnerType.LineSpinFadeRotating);
     const allOrders: { totalOrderCount: number; orders: List_Order[] } = await
      this.orderService.getAllOrders(this.paginator ? this.paginator.pageIndex : 0, this.paginator ?
-       this.paginator.pageSize: 5, () => this.hideSpinner(SpinnerType.LineSpinFadeRotating), errorMessage => this.alertifyService.message(errorMessage, {
+       this.paginator.pageSize: 5, () => this.hideSpinner(SpinnerType.LineSpinFadeRotating), (errorMessage : any) => this.alertifyService.message(errorMessage.message, {
       dismissOthers: true,
       messageType: MessageType.Error,
       position: Position.TopRight
