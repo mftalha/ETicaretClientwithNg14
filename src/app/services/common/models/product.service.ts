@@ -87,6 +87,20 @@ export class ProductService {
     await firstValueFrom(changeShowcaseImageObservable);
     successCallBack();
    }
+
+   
+   async updateStockQrCodeToProduct(productId: string, stock: number, successCallBack?:()=> void){
+    const observable = this.httpClientService.put({
+      action: "qrcode",
+      controller: "products"
+    }, {
+      productId, stock
+    });
+
+    await firstValueFrom(observable);
+    successCallBack();
+   }
+   
 }
 
 // bizim bu servisi oluşturma sebebimiz : product ile ilgili : veri çekme , yükleme , güncelleme gibi işlemleri product.componnet.ts sayfasında yapmanın doğru olmadığı için : burada yapacaz : oradan bu servisleri çağıracaz sadece.
